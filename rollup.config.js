@@ -22,9 +22,7 @@ const plugins = [
         browser: true,
         extensions
     }),
-    postcss({
-        extract: path.resolve('dist/style.css')
-    }),
+    postcss(),
     external(),
     babel({
         extensions,
