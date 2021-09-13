@@ -1,13 +1,16 @@
 import React from 'react'
 
-// import './style.less'
+import './style.less'
+
+import Img from './img.jpeg'
 
 export const MyComponent = () => {
 
-    const abd: string = '1'
+    const tsTest: string = 'test'
 
 
     return (<div >
-        <p>Парс</p>
+        <img src={Img} alt=""/>
+        <p>{tsTest}</p>
     </div>)
 }

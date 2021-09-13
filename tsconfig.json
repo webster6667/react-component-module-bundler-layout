@@ -32,6 +32,7 @@
     }
   },
   "include": [
+    "custom.d.ts",
     "src/**/*",
     "tests/**/*.ts",
     "tests/**/*.tsx"
