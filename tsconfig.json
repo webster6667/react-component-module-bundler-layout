@@ -16,20 +16,29 @@
     "sourceMap": true,
 
     "jsx": "preserve",
-    "allowJs": true, //Проходится по js файлам
+    "allowJs": true,
     "noImplicitAny": false,
 
-    "strict": true, //Строгий режим
+    "strict": true,
     "module": "esnext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "esModuleInterop": true,
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ]
+    }
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ],
   "exclude": [
     "node_modules/",
     "lib",
-    "es",
-    "**/*.test.*"
+    "es"
   ]
 }
