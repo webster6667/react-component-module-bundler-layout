@@ -12,6 +12,7 @@
 
     "declaration": true,
     "emitDeclarationOnly": true,
+    "esModuleInterop": true,
 
     "sourceMap": true,
 
@@ -24,7 +25,6 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
-    "esModuleInterop": true,
     "paths": {
       "@src/*": [
         "src/*"
@@ -33,9 +33,7 @@
   },
   "include": [
     "custom.d.ts",
-    "src/**/*",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules/",

@@ -6,7 +6,9 @@ import './style.scss'
 
 export const MyComponent = () => {
 
-    return (<div >
-        {/*<img src={Img} alt=""/>*/}
+    const test:string = 'test'
+
+    return (<div className={'my-component'} >
+        {test}
     </div>)
 }

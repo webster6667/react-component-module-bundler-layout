@@ -9,12 +9,12 @@
     "test": "jest",
     "clean": "rimraf dist",
     "prebuild": "run-s clean",
-    "build": "run-s build:types build:esm build:cjs build:theme build:docs",
+    "build": "run-s build:types build:prod build:theme build:docs",
     "build:docs": "jsdoc2md --template ./README.hbs --files ./src/*.tsx --configure ./jsdoc2md.json > ./README.md",
     "build:types": "tsc --project tsconfig.json",
-    "build:esm": "cross-env NODE_ENV=esm rollup -c",
-    "build:cjs": "cross-env NODE_ENV=cjs rollup -c",
-    "build:theme": "sass src/themes:dist/themes"
+    "build:prod": "cross-env NODE_ENV=prod rollup -c",
+    "build:dev": "run-s build:types && cross-env NODE_ENV=dev rollup -c --watch",
+    "build:theme": "sass src/themes:dist/style/themes"
   },
   "repository": {
     "type": "git",

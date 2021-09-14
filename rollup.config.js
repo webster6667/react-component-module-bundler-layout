@@ -10,58 +10,58 @@ import { terser } from 'rollup-plugin-terser'
 
 import postcss from 'rollup-plugin-postcss'
 
-const moduleFormat = process.env.NODE_ENV,
-      shouldSqueeze = ['cjs'].includes(moduleFormat)
-
-const inputFile = 'src/index.tsx',
-      outputFile = 'dist/index',
-      extensions = ['.js', '.ts','.tsx']
+const isDev = process.env.NODE_ENV === 'dev',
+      isProd = !isDev,
+      inputFile = 'src/index.tsx',
+      outputDir = 'dist',
+      extensions = ['.js', '.ts', '.tsx']
 
 const plugins = [
-    resolve({
-        browser: true,
-        extensions
-    }),
-    postcss(),
-    external(),
-    babel({
-        extensions,
-        babelHelpers: 'runtime',
-        presets: [
-            [
-                '@babel/preset-env',
-                {
-                    bugfixes: true,
-                    modules: false,
-                    targets: { browsers: '> 0.25%, ie 11, not op_mini all, not dead' }
-                }
+        resolve({
+            browser: true,
+            extensions
+        }),
+        postcss({
+            extract: path.resolve('dist/style/style.css')
+        }),
+        external(),
+        babel({
+            extensions,
+            babelHelpers: 'runtime',
+            presets: [
+                [
+                    '@babel/preset-env',
+                    {
+                        bugfixes: true,
+                        modules: false,
+                        targets: { browsers: '> 0.25%, ie 11, not op_mini all, not dead' }
+                    }
+                ],
+                '@babel/preset-react',
+                '@babel/preset-typescript'
             ],
-            '@babel/preset-react',
-            '@babel/preset-typescript'
-        ],
-        plugins: [
-            '@babel/plugin-transform-runtime'
-        ],
-        exclude: 'node_modules/**',
-    }),
-    commonjs(),
-    filesize(),
-]
-
-if (shouldSqueeze === true) {
-    plugins.push(terser())
-}
-
-export default [
-    {
+            plugins: [
+                '@babel/plugin-transform-runtime'
+            ],
+            exclude: 'node_modules/**',
+        }),
+        commonjs(),
+        filesize(),
+    ],
+    moduleBuildParams = {
         input: inputFile,
-        output: [
-            {
-                file: `${outputFile}.${moduleFormat}.js`,
-                format: moduleFormat,
-            }
-        ],
         external: [/@babel\/runtime/],
         plugins
     }
+
+if (isProd) {
+    plugins.push(terser())
+}
+
+const esmModule = {...moduleBuildParams, output: {file: `${outputDir}/index.esm.js`, format: 'esm'}},
+      cjsModule = {...moduleBuildParams, output: {file: `${outputDir}/index.cjs.js`, format: 'cjs'}}
+
+export default [
+    esmModule,
+    cjsModule
 ]
